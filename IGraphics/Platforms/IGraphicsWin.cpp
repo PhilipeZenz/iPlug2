@@ -559,6 +559,8 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
       return DLGC_WANTALLKEYS;
     case WM_KEYDOWN:
     case WM_KEYUP:
+    case WM_SYSKEYDOWN:
+    case WM_SYSKEYUP:
     {
       POINT p;
       GetCursorPos(&p);
@@ -586,7 +588,7 @@ LRESULT CALLBACK IGraphicsWin::WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARA
 
         const float scale = pGraphics->GetTotalScale();
 
-        if(msg == WM_KEYDOWN)
+        if(msg == WM_KEYDOWN || msg == WM_SYSKEYDOWN)
           handle = pGraphics->OnKeyDown(p.x / scale, p.y / scale, keyPress);
         else
           handle = pGraphics->OnKeyUp(p.x / scale, p.y / scale, keyPress);
